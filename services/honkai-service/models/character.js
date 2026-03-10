@@ -15,6 +15,12 @@ const characterSchema = new mongoose.Schema({
     required: true
   },
 
+  principalRole: {
+    type: String,
+    enum: ["DPS","Sub-DPS","Support","Debuffer", "Healer", "Shielder"],
+    required: true
+  },
+
   rarity: { type: Number, enum: [4,5], required: true },
 
   imageFull: { type: String, required: true },
@@ -43,7 +49,10 @@ const characterSchema = new mongoose.Schema({
     critDamage: Number,
     speed: Number,
     dmgBoost: Number,
-    effectHitRate: Number
+    effectHitRate: Number,
+    energyRecharge: Number,
+    breakEffect: Number,
+    healingBonus: Number,
   },
 
   relicAttributes: {
@@ -56,6 +65,13 @@ const characterSchema = new mongoose.Schema({
   statsSearched: [String],
 
   recommendedEidolons: [String],
+
+  traces: [{
+    name: String,
+    description: String,
+    level: Number,
+    image: String
+  }],
 
 }, { timestamps: true });
 
