@@ -53,7 +53,9 @@ const characterSchema = new mongoose.Schema({
     linkRope: String
   },
 
-  statsSearched: [String]
+  statsSearched: [String],
+
+  recommendedEidolons: [String],
 
 }, { timestamps: true });
 
