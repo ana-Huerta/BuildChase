@@ -30,7 +30,7 @@ const characterSchema = new mongoose.Schema({
 
   cardSet: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Deck'
+    ref: 'Card'
   }],
 
   legacyParents: [{
@@ -61,7 +61,7 @@ const characterSchema = new mongoose.Schema({
 
   skills: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Skills'
+    ref: 'Skill'
   }],
 
   secretEvent: {

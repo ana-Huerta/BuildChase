@@ -29,7 +29,7 @@ const characterSchema = new mongoose.Schema({
 
   artifactSets: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'ArtifactSet'
+    ref: 'Artifact'
   }],
 
   recommendedWeapons: [{
