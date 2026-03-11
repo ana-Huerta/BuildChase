@@ -8,6 +8,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// routes
+const authRoutes = require('./routes/authroutes');
+app.use('/api/auth', authRoutes);
+
 const PORT = process.env.PORT || 3000;
 
 // conexión a MongoDB
