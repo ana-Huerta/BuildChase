@@ -9,6 +9,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// routes
+const apiRoutes = require('./routes/routes');
+app.use('/api', apiRoutes);
+
 const PORT = process.env.PORT || 3001;
 
 // conexión a MongoDB
