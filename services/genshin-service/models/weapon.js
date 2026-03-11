@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const armSchema = new mongoose.Schema({
+const weaponSchema = new mongoose.Schema({
   name: { type: String, required: true },
 
-  armType: {
+  weaponType: {
     type: String,
     enum: ["Lanza","Arco","Espada Ligera","Mandoble","Catalizador"],
     required: true
@@ -37,4 +37,4 @@ const armSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-module.exports = mongoose.model('Arm', armSchema);
+module.exports = mongoose.model('Weapon', weaponSchema);

@@ -9,7 +9,7 @@ const characterSchema = new mongoose.Schema({
     required: true
   },
 
-  armType: {
+  weapon: {
     type: String,
     enum: ["Lanza","Arco","Espada Ligera","Mandoble","Catalizador"],
     required: true
@@ -32,9 +32,9 @@ const characterSchema = new mongoose.Schema({
     ref: 'ArtifactSet'
   }],
 
-  recommendedArms: [{
+  recommendedWeapons: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Arm Type'
+    ref: 'Weapon'
   }],
 
   teammates: [{
