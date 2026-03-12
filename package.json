@@ -19,6 +19,7 @@
     "genshin": "cd services/genshin-service && npm run dev",
     "honkai": "cd services/honkai-service && npm run dev",
     "umamusume": "cd services/umamusume-service && npm run dev",
-    "dev": "concurrently \"npm run auth\" \"npm run genshin\" \"npm run honkai\" \"npm run umamusume\""
+    "frontend": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run auth\" \"npm run genshin\" \"npm run honkai\" \"npm run umamusume\" \"npm run frontend\""
   }
 }
