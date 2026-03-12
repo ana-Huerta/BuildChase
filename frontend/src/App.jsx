@@ -4,8 +4,13 @@ import HonkaiPage from './pages/honkai/HonkaiPage'
 import GenshinPage from './pages/genshin/GenshinPage'
 import UmaPage from './pages/umamusume/UmaPage'
 import LoginPage from './pages/auth/LoginPage'
+import AdminPage from './pages/admin/AdminPage'
+import ProtectedRoute from './router/ProtectedRoute'
+import { useAuth } from './context/AuthContext'
 
 export default function App() {
+  const { user, logout } = useAuth()
+
   return (
     <BrowserRouter>
       <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
@@ -14,7 +19,14 @@ export default function App() {
           <NavLink to="/genshin" className={({isActive})=> isActive? 'active' : ''}>Genshin</NavLink>
           <NavLink to="/honkai" className={({isActive})=> isActive? 'active' : ''}>Honkai</NavLink>
           <NavLink to="/uma" className={({isActive})=> isActive? 'active' : ''}>Uma</NavLink>
-          <NavLink to="/login" style={{ marginLeft: 'auto' }} className={({isActive})=> isActive? 'active' : ''}>Login</NavLink>
+          {user?.role === 'admin' && (
+            <NavLink to="/admin" className={({isActive})=> isActive? 'active' : ''}>Admin</NavLink>
+          )}
+          {user ? (
+            <button onClick={logout} style={{ marginLeft: 'auto' }} className="btn">Cerrar sesión</button>
+          ) : (
+            <NavLink to="/login" style={{ marginLeft: 'auto' }} className={({isActive})=> isActive? 'active' : ''}>Login</NavLink>
+          )}
         </nav>
 
         <main>
@@ -32,6 +44,11 @@ export default function App() {
             <Route path='/honkai' element={<HonkaiPage />} />
             <Route path='/uma' element={<UmaPage />} />
             <Route path='/login' element={<LoginPage />} />
+            <Route path='/admin' element={
+              <ProtectedRoute requireAdmin>
+                <AdminPage />
+              </ProtectedRoute>
+            } />
           </Routes>
         </main>
       </div>
