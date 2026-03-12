@@ -1,0 +1,88 @@
+/* ===== Base variables ===== */
+
+:root {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: #111827;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5f5;
+
+  --border-color: #334155;
+
+  --primary: #7c5cff;
+  --secondary: #fbbf24;
+  --accent: #ff7ab6;
+}
+
+/* ===== HONKAI THEME ===== */
+
+.theme-honkai {
+  --primary: #7c5cff;
+  --secondary: #4f46e5;
+  --accent: #a78bfa;
+
+  --bg-primary: #0b0b1a;
+  --bg-secondary: #141432;
+  --bg-card: #1a1a40;
+}
+
+/* ===== GENSHIN THEME ===== */
+
+.theme-genshin {
+  --primary: #fbbf24;
+  --secondary: #38bdf8;
+  --accent: #34d399;
+
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: #1f2937;
+}
+
+/* ===== UMA MUSUME THEME ===== */
+
+.theme-uma {
+  --primary: #ff7ab6;
+  --secondary: #2dd4bf;
+  --accent: #ff9f7a;
+
+  --bg-primary: #1a1020;
+  --bg-secondary: #2a1530;
+  --bg-card: #352040;
+}
+
+/* ===== Utility / Layout ===== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.page-header { display:flex; align-items:flex-end; gap:12px; margin-bottom:18px; }
+.page-title { font-size: 28px; margin: 0; color: var(--primary); }
+.page-sub { margin: 0; color: var(--text-secondary); }
+
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.35);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(2,6,23,0.55); }
+.card-title { margin: 0; font-size: 18px; }
+.card-sub { margin: 6px 0 0; color: var(--text-secondary); }
+
+.nav { display:flex; gap:12px; padding:12px; border-bottom:1px solid var(--border-color); align-items:center; }
+.nav a { color: var(--text-primary); text-decoration: none; padding:8px 10px; border-radius:8px; }
+.nav a:hover { background: rgba(255,255,255,0.03); color: var(--primary); }
+
+.btn { padding: 10px 14px; border-radius: 10px; border: none; background: var(--primary); color: #fff; cursor: pointer; }
+.input { padding: 10px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-primary); }
+
+.center-card { max-width: 480px; margin: 60px auto; padding: 20px; border-radius: 12px; }
+
+.service-img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; }
