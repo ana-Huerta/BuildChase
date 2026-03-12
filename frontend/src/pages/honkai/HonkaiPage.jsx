@@ -1,12 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ServiceCard from '../../components/ui/ServiceCard'
-
-const sample = [
-  { id: 1, title: 'Silver Wolf', subtitle: 'Path: Destruction' },
-  { id: 2, title: 'March 7th', subtitle: 'Path: Harmony' },
-]
+import honkaiApi from '../../services/honkaiAPI'
 
 export default function HonkaiPage() {
+  const [items, setItems] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    let mounted = true
+    setLoading(true)
+    honkaiApi.get('/characters')
+      .then((res) => {
+        if (!mounted) return
+        const data = res.data?.data || res.data || []
+        setItems(Array.isArray(data) ? data : [])
+      })
+      .catch((err) => {
+        if (!mounted) return
+        setError(err.response?.data?.message || err.message || 'Error al cargar datos')
+      })
+      .finally(() => mounted && setLoading(false))
+
+    return () => { mounted = false }
+  }, [])
+
   return (
     <div className="theme-honkai" style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
       <div className="container">
@@ -16,8 +34,15 @@ export default function HonkaiPage() {
         </header>
 
         <main className="grid">
-          {sample.map((s) => (
-            <ServiceCard key={s.id} title={s.title} subtitle={s.subtitle} image={'/service-placeholder.svg'} />
+          {loading && <p>Cargando...</p>}
+          {error && <p style={{ color: 'var(--danger)' }}>{error}</p>}
+          {!loading && !error && items.map((it) => (
+            <ServiceCard
+              key={it._id || it.id}
+              title={it.name || it.title}
+              subtitle={it.path || it.principalRole || it.element || it.type || `Rarity: ${it.rarity || ''}`}
+              image={it.imageFull || it.iconImage || '/service-placeholder.svg'}
+            />
           ))}
         </main>
       </div>
