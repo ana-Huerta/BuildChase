@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import ServiceCard from '../../components/ui/ServiceCard'
 import genshinApi from '../../services/genshinAPI'
+import GenshinArtifactLayout from '../../components/layout/GenshinArtifactLayout'
 import Header from '../../components/layout/Header'
-import Footer from '../../components/layout/Footer'
-import GenshinLayout from '../../components/layout/GenshinLayout'
-import GenshinCharacterModal from '../../components/layout/GenshinCharacterModal'
 import { useSearchParams } from 'react-router-dom'
+import GenshinArtifactModal from '../../components/layout/GenshinArtifactModal'
 
-export default function GenshinPage() {
+export default function GenshinArtifactsPage() {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -19,7 +18,7 @@ export default function GenshinPage() {
     let mounted = true
     setLoading(true)
     const params = Object.fromEntries(Array.from(searchParams.entries()).filter(([k, v]) => v !== ''))
-    genshinApi.get('/characters', { params })
+    genshinApi.get('/artifacts', { params })
       .then((res) => {
         if (!mounted) return
         const data = res.data?.data || res.data || []
@@ -37,24 +36,23 @@ export default function GenshinPage() {
   return (
     <main>
       <Header />
-      <GenshinLayout>
+      <GenshinArtifactLayout>
         <div className="grid">
           {loading && <p>Cargando...</p>}
           {error && <p style={{ color: 'var(--danger)' }}>{error}</p>}
           {!loading && !error && items.map((it) => (
             <ServiceCard
               key={it._id || it.id}
-              title={it.name || it.title}
-              subtitle={it.weapon || it.principalRole || it.element || `Rarity: ${it.rarity || ''}`}
-              image={it.iconImage || '/service-placeholder.svg'}
+              title={it.name}
+              subtitle={ ''}
+              image={it.imageFull || '/service-placeholder.svg'}
               tile
               onClick={() => setSelected(it)}
             />
           ))}
-          <GenshinCharacterModal character={selected} onClose={() => setSelected(null)} />
+          <GenshinArtifactModal artifact={selected} onClose={() => setSelected(null)} />
         </div>
-      </GenshinLayout>
-      <Footer />
+      </GenshinArtifactLayout>
     </main>
   )
 }

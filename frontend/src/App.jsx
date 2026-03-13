@@ -4,6 +4,8 @@ import HonkaiPage from './pages/honkai/HonkaiPage'
 import HonkaiLightconesPage from './pages/honkai/HonkaiLightconesPage'
 import HonkaiArtifactsPage from './pages/honkai/HonkaiArtifactsPage'
 import GenshinPage from './pages/genshin/GenshinPage'
+import GenshinWeaponsPage from './pages/genshin/GenshinWeaponsPage'
+import GenshinArtifactsPage from './pages/genshin/GenshinArtifactsPage'
 import UmaPage from './pages/umamusume/UmaPage'
 import LoginPage from './pages/auth/LoginPage'
 import AdminPage from './pages/admin/AdminPage'
@@ -33,6 +35,8 @@ export default function App() {
           <Routes>
             <Route path='/' element={<HomeLanding/>} />
             <Route path='/genshin' element={<GenshinPage />} />
+            <Route path='/genshin/weapons' element={<GenshinWeaponsPage />} />
+            <Route path='/genshin/artifacts' element={<GenshinArtifactsPage />} />
             <Route path='/honkai' element={<HonkaiPage />} />
             <Route path='/honkai/lightcones' element={<HonkaiLightconesPage />} />
             <Route path='/honkai/artifacts' element={<HonkaiArtifactsPage />} />
