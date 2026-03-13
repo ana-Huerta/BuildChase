@@ -15,7 +15,7 @@ export default function HonkaiLightconeModal({ lightcone, onClose }) {
             <img src={imageFull || '/service-placeholder.svg'} alt={name} style={{ width: '50%', borderRadius: 8, height: '100%', transform: 'translateX(40%)'}} />
           </div>
 
-          <div className="hc-right">
+          <div className='hc-right' style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <h2 style={{ margin: 0 }}>{name} <span style={{ color: 'var(--text-secondary)', fontSize: 14 }}>· {path} · {rarity}★</span></h2>
 
             <div style={{ marginTop: 12 }}>{description}</div>

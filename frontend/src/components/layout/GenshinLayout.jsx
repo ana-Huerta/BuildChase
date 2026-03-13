@@ -69,7 +69,7 @@ export default function GenshinLayout({ title = '', subtitle = '', children }) {
                 </div>
               </div>
             </section>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style={{ position:'absolute', right:10, top:'50%', transform:'translateY(-50%)', pointerEvents:'none', color:'var(--text-primary)' }} xmlns="http://www.w3.org/2000/svg">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style={{ position:'absolute', right:10, top:'50%', transform:'translateY(-50%)', pointerEvents:'none', color:'var(--text-secondary)' }} xmlns="http://www.w3.org/2000/svg">
                 <path d="M6 9l6 6 6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
 

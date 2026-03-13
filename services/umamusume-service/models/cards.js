@@ -13,7 +13,7 @@ const cardSchema = new mongoose.Schema({
 
   iconImage: { type: String, required: true },
 
-  type: { type: String, enum: ['Speed', 'Stamina', 'Power', 'Guts', 'Wit'], required: true },
+  type: { type: String, enum: ['Speed', 'Stamina', 'Power', 'Guts', 'Wit', 'Pal', 'Group'], required: true },
 
   styles: [{
     frontRunner: String,

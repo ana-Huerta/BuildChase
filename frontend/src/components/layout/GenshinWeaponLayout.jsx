@@ -43,7 +43,7 @@ export default function GenshinWeaponLayout({ title = '', subtitle = '', childre
                       value={rarity}
                       onChange={(e) => setParam('rarity', e.target.value)}
                       className="input"
-                      style={{ padding: '8px 36px 8px 12px', borderRadius: 8, background: 'rgba(0,0,0,0.2)', border: '1px solid var(--border)', color: 'var(--text-primary)', minWidth: 120 }}
+                      style={{ padding: '8px 36px 8px 12px', borderRadius: 8, background: 'rgba(0,0,0,0.2)', border: '1px solid var(--border)', color: 'var(--text-secondary)', minWidth: 120 }}
                     >
                       <option value="">Cualquiera</option>
                       <option value="5">★★★★★</option>

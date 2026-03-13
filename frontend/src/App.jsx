@@ -7,6 +7,8 @@ import GenshinPage from './pages/genshin/GenshinPage'
 import GenshinWeaponsPage from './pages/genshin/GenshinWeaponsPage'
 import GenshinArtifactsPage from './pages/genshin/GenshinArtifactsPage'
 import UmaPage from './pages/umamusume/UmaPage'
+import UmaCardsPage from './pages/umamusume/UmaCardsPage'
+import UmaSkillsPage from './pages/umamusume/UmaSkillsPage'
 import LoginPage from './pages/auth/LoginPage'
 import AdminPage from './pages/admin/AdminPage'
 import ProtectedRoute from './router/ProtectedRoute'
@@ -41,6 +43,8 @@ export default function App() {
             <Route path='/honkai/lightcones' element={<HonkaiLightconesPage />} />
             <Route path='/honkai/artifacts' element={<HonkaiArtifactsPage />} />
             <Route path='/uma' element={<UmaPage />} />
+            <Route path='/uma/cards' element={<UmaCardsPage />} />
+            <Route path='/uma/skills' element={<UmaSkillsPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/admin' element={
               <ProtectedRoute requireAdmin>

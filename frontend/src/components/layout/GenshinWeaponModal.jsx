@@ -15,7 +15,7 @@ export default function GenshinWeaponModal({ weapon, onClose }) {
             <img src={imageFull || '/service-placeholder.svg'} alt={name} style={{ width: '100%', borderRadius: 8, height: '100%' }} />
           </div>
 
-          <div className="hc-right">
+          <div className='hc-right' style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <h2 style={{ margin: 0 }}>{name} <span style={{ color: 'var(--text-secondary)', fontSize: 14 }}>· {weaponType} · {rarity}★</span></h2>
 
             <div className="hc-block">

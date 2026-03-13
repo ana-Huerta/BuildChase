@@ -15,7 +15,7 @@ export default function HonkaiArtifactModal({ artifact, onClose }) {
             <img src={imageFull || '/service-placeholder.svg'} alt={name} style={{ width: '100%', borderRadius: 8, height: '100%' }} />
           </div>
 
-          <div className="hc-right">
+          <div className='hc-right' style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <h2 style={{ margin: 0 }}>{name}</h2>
 
             <div className="hc-block">

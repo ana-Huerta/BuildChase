@@ -65,7 +65,7 @@ export default function HonkaiLayout({ title = '', subtitle = '', children }) {
                                             value={rarity}
                                             onChange={(e) => setParam('rarity', e.target.value)}
                                             className="input"
-                                            style={{ appearance: 'none',WebkitAppearance: 'none', MozAppearance: 'none',  padding: '8px 36px 8px 12px', borderRadius: 8, background: 'rgba(53, 66, 140, .4)', border: '1px solid var(--border)', color: 'var(--text-primary)', minWidth: 120}}
+                                            style={{ appearance: 'none',WebkitAppearance: 'none', MozAppearance: 'none',  padding: '8px 36px 8px 12px', borderRadius: 8, background: 'rgba(53, 66, 140, .4)', border: '1px solid var(--border)', color: 'var(--text-secondary)', minWidth: 120}}
                                         >
                                             <option value="">Cualquiera</option>
                                             <option value="5">★★★★★</option>
