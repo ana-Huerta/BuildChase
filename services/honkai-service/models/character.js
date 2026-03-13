@@ -11,7 +11,7 @@ const characterSchema = new mongoose.Schema({
 
   path: {
     type: String,
-    enum: ["Destrucción","Cacería","Erudición","Armonía","Nihilidad","Preservación","Abundancia", "Reminiscencia", "Exultación"],
+    enum: ["Destrucción","Cacería","Erudición","Armonía","Nihilidad","Conservación","Abundancia", "Reminiscencia", "Exultación"],
     required: true
   },
 

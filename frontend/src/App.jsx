@@ -1,6 +1,8 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import HonkaiPage from './pages/honkai/HonkaiPage'
+import HonkaiLightconesPage from './pages/honkai/HonkaiLightconesPage'
+import HonkaiArtifactsPage from './pages/honkai/HonkaiArtifactsPage'
 import GenshinPage from './pages/genshin/GenshinPage'
 import UmaPage from './pages/umamusume/UmaPage'
 import LoginPage from './pages/auth/LoginPage'
@@ -32,6 +34,8 @@ export default function App() {
             <Route path='/' element={<HomeLanding/>} />
             <Route path='/genshin' element={<GenshinPage />} />
             <Route path='/honkai' element={<HonkaiPage />} />
+            <Route path='/honkai/lightcones' element={<HonkaiLightconesPage />} />
+            <Route path='/honkai/artifacts' element={<HonkaiArtifactsPage />} />
             <Route path='/uma' element={<UmaPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/admin' element={

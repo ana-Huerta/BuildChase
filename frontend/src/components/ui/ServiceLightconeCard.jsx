@@ -1,10 +1,10 @@
 import React from 'react'
 
-export default function ServiceCard({ title, subtitle, image = '/service-placeholder.svg', className = '', tile = false, onClick }) {
+export default function ServiceLightconeCard({ title, subtitle, image = '/service-placeholder.svg', className = '', tile = false, onClick }) {
   if (tile) {
     return (
-      <div onClick={onClick} className={"card tile-card " + className} style={{ cursor: onClick ? 'pointer' : 'default' }}>
-        <img src={image} alt={title} className="service-img" />
+      <div onClick={onClick} className={"card tile-card service-lightcone-card " + className} style={{ cursor: onClick ? 'pointer' : 'default' }}>
+        <img src={image} alt={title} className="service-img service-lightcone-card-img" />
         <div style={{ marginTop: 8 }}>
           <h3 className="card-title">{title}</h3>
           <p className="card-sub">{subtitle}</p>

@@ -2,7 +2,15 @@ const Character = require('../models/character');
 
 exports.getAll = async (req, res) => {
   try {
-    const filters = { ...req.query };
+    const q = req.query || {};
+    const filters = {};
+    if (q.rarity) filters.rarity = Number(q.rarity);
+    if (q.element) filters.element = q.element;
+    if (q.path) filters.path = q.path;
+    // allow filtering by principalRole or name if provided
+    if (q.principalRole) filters.principalRole = q.principalRole;
+    if (q.name) filters.name = { $regex: q.name, $options: 'i' };
+
     const characters = await Character.find(filters).populate('recommendedLightcones teammates artifactSets');
     return res.json({ success: true, data: characters });
   } catch (err) {

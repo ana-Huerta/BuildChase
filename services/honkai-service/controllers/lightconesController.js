@@ -2,7 +2,12 @@ const Lightcone = require('../models/lightcones');
 
 exports.getAll = async (req, res) => {
   try {
-    const filters = { ...req.query };
+    const q = req.query || {};
+    const filters = {};
+    if (q.rarity) filters.rarity = Number(q.rarity);
+    if (q.path) filters.path = q.path;
+    if (q.name) filters.name = { $regex: q.name, $options: 'i' };
+
     const items = await Lightcone.find(filters).populate('recommendedCharacters');
     return res.json({ success: true, data: items });
   } catch (err) {

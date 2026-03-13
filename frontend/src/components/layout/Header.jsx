@@ -29,7 +29,7 @@ export default function Header() {
           {user ? (
             <button onClick={logout} className="btn"><Power size={18} /> Cerrar sesión</button>
           ) : (
-            <NavLink to="/login" className={({isActive})=> isActive? 'active' : ''}><LogIn size={18} /> Iniciar Sesión</NavLink>
+            <NavLink to="/login" className={({isActive})=> isActive? 'active' : ''} style={{height: 50, alignItems: 'center', justifyContent: 'center', textAlign: 'center', display: 'flex', flexDirection: 'row', gap: 12}}><LogIn size={18} /> Iniciar Sesión</NavLink>
           )}
         </div>
       </nav>

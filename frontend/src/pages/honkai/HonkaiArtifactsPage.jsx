@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import ServiceCard from '../../components/ui/ServiceCard'
 import honkaiApi from '../../services/honkaiAPI'
-import HonkaiLayout from '../../components/layout/HonkaiLayout'
+import HonkaiArtifactLayout from '../../components/layout/HonkaiArtifactLayout'
 import Header from '../../components/layout/Header'
-import Footer from '../../components/layout/Footer'
 import { useSearchParams } from 'react-router-dom'
-import HonkaiCharacterModal from '../../components/layout/HonkaiCharacterModal'
+import HonkaiArtifactModal from '../../components/layout/HonkaiArtifactModal'
 
-export default function HonkaiPage() {
+export default function HonkaiArtifactsPage() {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -19,7 +18,7 @@ export default function HonkaiPage() {
     let mounted = true
     setLoading(true)
     const params = Object.fromEntries(Array.from(searchParams.entries()).filter(([k, v]) => v !== ''))
-    honkaiApi.get('/characters', { params })
+    honkaiApi.get('/artifacts', { params })
       .then((res) => {
         if (!mounted) return
         const data = res.data?.data || res.data || []
@@ -32,29 +31,28 @@ export default function HonkaiPage() {
       .finally(() => mounted && setLoading(false))
 
     return () => { mounted = false }
-  // re-run when search params change
   }, [searchParams.toString()])
 
   return (
     <main>
       <Header/>
-      <HonkaiLayout>
+      <HonkaiArtifactLayout>
         <div className="grid">
           {loading && <p>Cargando...</p>}
           {error && <p style={{ color: 'var(--danger)' }}>{error}</p>}
           {!loading && !error && items.map((it) => (
             <ServiceCard
               key={it._id || it.id}
-              title={it.name || it.title}
-              subtitle={it.path || it.principalRole || it.element || it.type || `Rarity: ${it.rarity || ''}`}
-              image={it.iconImage || '/service-placeholder.svg'}
+              title={it.name}
+              subtitle={ ''}
+              image={it.imageFull || '/service-placeholder.svg'}
               tile
               onClick={() => setSelected(it)}
             />
           ))}
-        <HonkaiCharacterModal character={selected} onClose={() => setSelected(null)} />
-      </div>
-    </HonkaiLayout>
+          <HonkaiArtifactModal artifact={selected} onClose={() => setSelected(null)} />
+        </div>
+      </HonkaiArtifactLayout>
     </main>
   )
 }
