@@ -30,11 +30,11 @@ export default function HomeLanding(){
               <span className='cover turn'></span>
             </div>
           </div>
-          <h2 className="page-title" style={{ textAlign: 'center', marginTop: 24, fontFamily: 'LemonMilk, sans-serif'}}>Bienvenido a BuildChaser</h2>
+          <h2 className="page-title" style={{ textAlign: 'center', marginTop: 8, fontFamily: 'LemonMilk, sans-serif'}}>Bienvenido a BuildChaser</h2>
         </div>
       </section>
 
-      <section className="container" style={{ padding: '36px 28px', position: 'relative', zIndex: 1 }}>
+      <section className="container" style={{ padding: '18px 28px', position: 'relative', zIndex: 1, marginBottom: '64px' }}>
         <div className="services-row">
           <NavLink to="/genshin" className="img-icon">
             <div style={{ height: 150, alignItems: 'center', justifyContent: 'center', textAlign: 'center', display: 'flex', flexDirection: 'column' }}>

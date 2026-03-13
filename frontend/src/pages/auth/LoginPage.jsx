@@ -26,16 +26,18 @@ export default function LoginPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
-      <div className="center-card card">
-        <h1 style={{ color: 'var(--primary)', marginBottom: 6 }}>Iniciar sesión</h1>
-        <p className="page-sub" style={{ marginTop: 0 }}>Accede con tu cuenta</p>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="center-card card" style={{ maxWidth: 420, width: '100%', padding: 20 }}>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 12 }}>
+          <img src="/images/logo-small.png" alt="BuildChaser" style={{ height: 36 }} onError={(e)=>{e.target.style.display='none'}} />
+        </div>
+        <h1 style={{ color: 'var(--text-primary)', margin: 0, fontSize: 20, textAlign: 'center' }}>Iniciar sesión</h1>
 
-        <form onSubmit={handleSubmit} style={{ marginTop: 18, display: 'grid', gap: 12 }}>
-          <input className="input" placeholder="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
-          <input className="input" placeholder="Contraseña" type="password" value={password} onChange={e => setPassword(e.target.value)} />
-          <button className="btn">Entrar</button>
-          {error && <p style={{ color: 'var(--danger)' }}>{error}</p>}
+        <form onSubmit={handleSubmit} style={{ marginTop: 18, display: 'grid', gap: 10 }}>
+          <input aria-label="email" className="input" placeholder="Correo electrónico" type="email" value={email} onChange={e => setEmail(e.target.value)} />
+          <input aria-label="password" className="input" placeholder="Contraseña" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+          <button className="btn" style={{ width: '100%', padding: '10px 12px' }}>Entrar</button>
+          {error && <p style={{ color: 'var(--danger)', margin: 0, textAlign: 'center' }}>{error}</p>}
         </form>
       </div>
     </div>

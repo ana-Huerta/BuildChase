@@ -34,7 +34,8 @@ export function AuthProvider({ children }) {
     setUser(null)
   }
 
-  const authApi = createApiClient(import.meta.env.VITE_AUTH_API_URL || 'http://localhost:3000')
+  const authBase = (import.meta.env.VITE_AUTH_API_URL || 'http://localhost:3000').replace(/\/$/, '')
+  const authApi = createApiClient(`${authBase}/api`)
 
   return (
     <AuthContext.Provider value={{ user, login, logout, authApi }}>

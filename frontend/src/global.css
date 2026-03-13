@@ -117,7 +117,7 @@ html, body, #root {
 /*Paginas*/
 .page-header { display:flex; align-items:flex-end; gap:12px; margin-bottom:20px; }
 .page-title { font-size: 26px; margin: 0; color: var(--text-primary); font-weight:600; }
-.page-sub { margin: 0; color: var(--text-secondary); }
+.page-sub { margin: 0; color: var(--genshin-secondary); }
 
 .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 
@@ -166,6 +166,7 @@ html, body, #root {
   background: linear-gradient(180deg, rgba(242,92,147,0.08), rgba(242,92,147,0.02));
 }
 .input { padding: 10px; border-radius: 8px; border: 1px solid var(--muted-border); background: transparent; color: var(--text-primary); }
+.input::placeholder {color: var(--genshin-secondary); border: 2px; border-color: var(--genshin-secondary);}
 
 .center-card { max-width: 560px; margin: 56px auto; padding: 20px; border-radius: 12px; }
 
@@ -173,7 +174,7 @@ html, body, #root {
 .service-lightcone-card-img { width: 120px; height: 250px; object-fit: cover; border-radius: 8px; }
 
 /* Card styles used by ServiceCard */
-.card { background: rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 12px; box-shadow: 0 1px 0 rgba(0,0,0,0.12); border: 1px solid rgba(255,255,255,0.02); }
+.card { background: rgba(255, 255, 255, 0.3); border-radius: 12px; padding: 12px; box-shadow: 0 1px 0 rgba(0,0,0,0.12); border: 1px solid rgba(255,255,255,0.02); }
 .card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
 .card-title { margin: 0; font-size: 16px; font-weight: 600; color: var(--text-primary); }
 .card-sub { margin: 4px 0 0; color: var(--text-secondary); font-size: 13px }
