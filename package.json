@@ -11,6 +11,7 @@
     "tailwindcss": "^4.2.1"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.1",
     "concurrently": "^9.2.1",
     "nodemon": "^3.1.14"
   },

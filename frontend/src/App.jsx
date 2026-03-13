@@ -1,45 +1,35 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import HonkaiPage from './pages/honkai/HonkaiPage'
 import GenshinPage from './pages/genshin/GenshinPage'
 import UmaPage from './pages/umamusume/UmaPage'
 import LoginPage from './pages/auth/LoginPage'
 import AdminPage from './pages/admin/AdminPage'
 import ProtectedRoute from './router/ProtectedRoute'
-import { useAuth } from './context/AuthContext'
+import Header from './components/layout/Header'
+import Footer from './components/layout/Footer'
+import HomeLanding from './components/layout/HomeLanding'
 
 export default function App() {
-  const { user, logout } = useAuth()
+  const wrapperStyle = {
+    position: 'relative',
+    color: '#fff',
+    backgroundImage: 'url(/images/bg.jpg)',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    margin: 0,
+    minHeight: '100vh',
+    minWidth: '100vw',
+    }
 
   return (
     <BrowserRouter>
-      <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
-        <nav className="nav">
-          <NavLink to="/" end className={({isActive})=> isActive? 'active' : ''}>Home</NavLink>
-          <NavLink to="/genshin" className={({isActive})=> isActive? 'active' : ''}>Genshin</NavLink>
-          <NavLink to="/honkai" className={({isActive})=> isActive? 'active' : ''}>Honkai</NavLink>
-          <NavLink to="/uma" className={({isActive})=> isActive? 'active' : ''}>Uma</NavLink>
-          {user?.role === 'admin' && (
-            <NavLink to="/admin" className={({isActive})=> isActive? 'active' : ''}>Admin</NavLink>
-          )}
-          {user ? (
-            <button onClick={logout} style={{ marginLeft: 'auto' }} className="btn">Cerrar sesión</button>
-          ) : (
-            <NavLink to="/login" style={{ marginLeft: 'auto' }} className={({isActive})=> isActive? 'active' : ''}>Login</NavLink>
-          )}
-        </nav>
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundImage: 'url(/images/bg.jpg)', color: 'var(--text-primary)' }}>
 
-        <main>
+        <main style={{ flex: 1 }}>
           <Routes>
-            <Route
-              path='/'
-              element={
-                <div style={{ padding: 24 }}>
-                  <h2 style={{ color: 'var(--primary)', marginTop: 0 }}>Bienvenido a BuildChase</h2>
-                  <p style={{ color: 'var(--text-secondary)' }}>Selecciona un servicio para ver builds y datos.</p>
-                </div>
-              }
-            />
+            <Route path='/' element={<HomeLanding/>} />
             <Route path='/genshin' element={<GenshinPage />} />
             <Route path='/honkai' element={<HonkaiPage />} />
             <Route path='/uma' element={<UmaPage />} />
@@ -51,6 +41,8 @@ export default function App() {
             } />
           </Routes>
         </main>
+
+        <Footer />
       </div>
     </BrowserRouter>
   )
