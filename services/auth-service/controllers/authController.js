@@ -11,11 +11,30 @@ function generateToken(user) {
 	return jwt.sign(payload, secret, options);
 }
 
+function isValidEmail(email) {
+	if (!email || typeof email !== 'string') return false
+	const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+	if (!re.test(email)) return false
+
+	// Optional domain whitelist via env var ALLOWED_EMAIL_DOMAINS (comma separated)
+	const allowed = (process.env.ALLOWED_EMAIL_DOMAINS || process.env.AUTH_ALLOWED_EMAIL_DOMAINS || '').trim()
+	if (!allowed) return true
+	const domains = allowed.split(',').map(d => d.trim().toLowerCase()).filter(Boolean)
+	const domain = email.split('@')[1]?.toLowerCase() || ''
+	return domains.includes(domain)
+}
+
 async function registerUser(req, res) {
 	try {
 		const { username, email, password, role } = req.body;
 		if (!username || !email || !password) {
 			return res.status(400).json({ success: false, message: 'Faltan campos requeridos' });
+		}
+
+		if (!isValidEmail(email)) {
+			const allowed = (process.env.ALLOWED_EMAIL_DOMAINS || process.env.AUTH_ALLOWED_EMAIL_DOMAINS || '')
+			const msg = allowed ? `Email inválido o no permitido. Dominios permitidos: ${allowed}` : 'Email inválido'
+			return res.status(400).json({ success: false, message: msg })
 		}
 
 		const existing = await User.findOne({ email });
@@ -42,6 +61,12 @@ async function loginUser(req, res) {
 		const { email, password } = req.body;
 		if (!email || !password) {
 			return res.status(400).json({ success: false, message: 'Faltan campos requeridos' });
+		}
+
+		if (!isValidEmail(email)) {
+			const allowed = (process.env.ALLOWED_EMAIL_DOMAINS || process.env.AUTH_ALLOWED_EMAIL_DOMAINS || '')
+			const msg = allowed ? `Email inválido o no permitido. Dominios permitidos: ${allowed}` : 'Email inválido'
+			return res.status(400).json({ success: false, message: msg })
 		}
 
 		const user = await User.findOne({ email });

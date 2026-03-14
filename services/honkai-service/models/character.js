@@ -36,6 +36,11 @@ const characterSchema = new mongoose.Schema({
     ref: 'Lightcone'
   }],
 
+  recommendedArtifacts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Artifact'
+  }],
+
   teammates: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Character'

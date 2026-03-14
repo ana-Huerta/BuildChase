@@ -33,6 +33,21 @@ const characterSchema = new mongoose.Schema({
     ref: 'Card'
   }],
 
+  recommendedCards: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Card'
+  }],
+
+  recommendedParents: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Character'
+  }],
+
+  recommendedSkills: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Skill'
+  }],
+
   legacyParents: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Character'

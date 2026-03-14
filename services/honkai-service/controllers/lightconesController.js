@@ -25,6 +25,33 @@ exports.getById = async (req, res) => {
   }
 };
 
+// Simple list for modal
+exports.getSimpleList = async (req, res) => {
+  try {
+    const items = await Lightcone.find({}, '_id name iconImage');
+    return res.json({ success: true, data: items });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+// Agrega recommendedCharacter
+exports.addRecommendedCharacter = async (req, res) => {
+  try {
+    const { relatedId } = req.body;
+    if (!relatedId) return res.status(400).json({ success: false, message: 'relatedId required' });
+    const updated = await Lightcone.findByIdAndUpdate(
+      req.params.id,
+      { $push: { recommendedCharacters: relatedId } },
+      { new: true }
+    ).populate('recommendedCharacters');
+    if (!updated) return res.status(404).json({ success: false, message: 'Lightcone not found' });
+    return res.json({ success: true, data: updated });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: err.message });
+  }
+};
+
 exports.create = async (req, res) => {
   try {
     const newItem = new Lightcone(req.body);

@@ -50,3 +50,13 @@ exports.remove = async (req, res) => {
 	}
 };
 
+// Simple list for relation modal
+exports.getSimpleList = async (req, res) => {
+  try {
+    const items = await Skill.find({}, '_id name iconImage');
+    return res.json({ success: true, data: items });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: err.message });
+  }
+};
+

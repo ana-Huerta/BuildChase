@@ -50,3 +50,46 @@ exports.remove = async (req, res) => {
 	}
 };
 
+// Simple list for modal
+exports.getSimpleList = async (req, res) => {
+	try {
+		const items = await Weapon.find({}, '_id name iconImage');
+		return res.json({ success: true, data: items });
+	} catch (err) {
+		return res.status(500).json({ success: false, message: err.message });
+	}
+};
+
+// Agrega recommendedCharacter
+exports.addRecommendedCharacter = async (req, res) => {
+	try {
+		const { relatedId } = req.body;
+		if (!relatedId) return res.status(400).json({ success: false, message: 'relatedId required' });
+		const updated = await Weapon.findByIdAndUpdate(
+			req.params.id,
+			{ $push: { recommendedCharacters: relatedId } },
+			{ new: true }
+		).populate('recommendedCharacters');
+		if (!updated) return res.status(404).json({ success: false, message: 'Weapon not found' });
+		return res.json({ success: true, data: updated });
+	} catch (err) {
+		return res.status(500).json({ success: false, message: err.message });
+	}
+};
+
+// Remove a recommendedCharacter
+exports.removeRecommendedCharacter = async (req, res) => {
+	try {
+		const { relatedId } = req.params;
+		const updated = await Weapon.findByIdAndUpdate(
+			req.params.id,
+			{ $pull: { recommendedCharacters: relatedId } },
+			{ new: true }
+		).populate('recommendedCharacters');
+		if (!updated) return res.status(404).json({ success: false, message: 'Weapon not found' });
+		return res.json({ success: true, data: updated });
+	} catch (err) {
+		return res.status(500).json({ success: false, message: err.message });
+	}
+};
+

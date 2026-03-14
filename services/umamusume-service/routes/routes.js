@@ -11,13 +11,19 @@ const skills = require('../controllers/skillController');
 
 // Characters
 router.get('/characters', characters.getAll);
+router.get('/characters/simple', characters.getSimpleList);
 router.get('/characters/:id', characters.getById);
 router.post('/characters', authMiddleware, roleMiddleware('admin'), characters.create);
 router.put('/characters/:id', authMiddleware, roleMiddleware('admin'), characters.update);
 router.delete('/characters/:id', authMiddleware, roleMiddleware('admin'), characters.remove);
+router.post('/characters/:id/recommendedCards', authMiddleware, roleMiddleware('admin'), characters.addRecommendedCard);
+router.post('/characters/:id/recommendedParents', authMiddleware, roleMiddleware('admin'), characters.addRecommendedParent);
+router.post('/characters/:id/recommendedSkills', authMiddleware, roleMiddleware('admin'), characters.addRecommendedSkill);
+router.delete('/characters/:id/:field/:relatedId', authMiddleware, roleMiddleware('admin'), characters.removeRelation);
 
 // Cards
 router.get('/cards', cards.getAll);
+router.get('/cards/simple', cards.getSimpleList);
 router.get('/cards/:id', cards.getById);
 router.post('/cards', authMiddleware, roleMiddleware('admin'), cards.create);
 router.put('/cards/:id', authMiddleware, roleMiddleware('admin'), cards.update);
@@ -25,6 +31,7 @@ router.delete('/cards/:id', authMiddleware, roleMiddleware('admin'), cards.remov
 
 // Skills
 router.get('/skills', skills.getAll);
+router.get('/skills/simple', skills.getSimpleList);
 router.get('/skills/:id', skills.getById);
 router.post('/skills', authMiddleware, roleMiddleware('admin'), skills.create);
 router.put('/skills/:id', authMiddleware, roleMiddleware('admin'), skills.update);

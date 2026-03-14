@@ -1,50 +1,114 @@
 const Character = require('../models/characters');
 
 exports.getAll = async (req, res) => {
+		try {
+				const filters = { ...req.query };
+				const items = await Character.find(filters).populate('legacyParents skills cardSet recommendedCards recommendedParents recommendedSkills');
+				return res.json({ success: true, data: items });
+		} catch (err) {
+				return res.status(500).json({ success: false, message: err.message });
+		}
+};
+
+exports.getById = async (req, res) => {
+		try {
+				const item = await Character.findById(req.params.id).populate('legacyParents skills cardSet recommendedCards recommendedParents recommendedSkills');
+				if (!item) return res.status(404).json({ success: false, message: 'Character not found' });
+				return res.json({ success: true, data: item });
+		} catch (err) {
+				return res.status(500).json({ success: false, message: err.message });
+		}
+};
+
+exports.create = async (req, res) => {
+		try {
+				const newItem = new Character(req.body);
+				const saved = await newItem.save();
+				return res.status(201).json({ success: true, data: saved });
+		} catch (err) {
+				return res.status(400).json({ success: false, message: err.message });
+		}
+};
+
+exports.update = async (req, res) => {
+		try {
+				const updated = await Character.findByIdAndUpdate(req.params.id, req.body, { new: true });
+				if (!updated) return res.status(404).json({ success: false, message: 'Character not found' });
+				return res.json({ success: true, data: updated });
+		} catch (err) {
+				return res.status(400).json({ success: false, message: err.message });
+		}
+};
+
+exports.remove = async (req, res) => {
+		try {
+				const removed = await Character.findByIdAndDelete(req.params.id);
+				if (!removed) return res.status(404).json({ success: false, message: 'Character not found' });
+				return res.json({ success: true, data: removed });
+		} catch (err) {
+				return res.status(500).json({ success: false, message: err.message });
+		}
+};
+
+// Simple list for modal
+exports.getSimpleList = async (req, res) => {
 	try {
-		const filters = { ...req.query };
-		const items = await Character.find(filters).populate('legacyParents skills cardSet');
+		const items = await Character.find({}, '_id name iconImage');
 		return res.json({ success: true, data: items });
 	} catch (err) {
 		return res.status(500).json({ success: false, message: err.message });
 	}
 };
 
-exports.getById = async (req, res) => {
+// Add recommended card
+exports.addRecommendedCard = async (req, res) => {
 	try {
-		const item = await Character.findById(req.params.id).populate('legacyParents skills cardSet');
-		if (!item) return res.status(404).json({ success: false, message: 'Character not found' });
-		return res.json({ success: true, data: item });
+		const { relatedId } = req.body;
+		if (!relatedId) return res.status(400).json({ success: false, message: 'relatedId required' });
+		const updated = await Character.findByIdAndUpdate(req.params.id, { $push: { recommendedCards: relatedId } }, { new: true }).populate('recommendedCards recommendedParents recommendedSkills cardSet skills');
+		if (!updated) return res.status(404).json({ success: false, message: 'Character not found' });
+		return res.json({ success: true, data: updated });
 	} catch (err) {
 		return res.status(500).json({ success: false, message: err.message });
 	}
 };
 
-exports.create = async (req, res) => {
+// Add recommended parent
+exports.addRecommendedParent = async (req, res) => {
 	try {
-		const newItem = new Character(req.body);
-		const saved = await newItem.save();
-		return res.status(201).json({ success: true, data: saved });
-	} catch (err) {
-		return res.status(400).json({ success: false, message: err.message });
-	}
-};
-
-exports.update = async (req, res) => {
-	try {
-		const updated = await Character.findByIdAndUpdate(req.params.id, req.body, { new: true });
+		const { relatedId } = req.body;
+		if (!relatedId) return res.status(400).json({ success: false, message: 'relatedId required' });
+		const updated = await Character.findByIdAndUpdate(req.params.id, { $push: { recommendedParents: relatedId } }, { new: true }).populate('recommendedCards recommendedParents recommendedSkills cardSet skills');
 		if (!updated) return res.status(404).json({ success: false, message: 'Character not found' });
 		return res.json({ success: true, data: updated });
 	} catch (err) {
-		return res.status(400).json({ success: false, message: err.message });
+		return res.status(500).json({ success: false, message: err.message });
 	}
 };
 
-exports.remove = async (req, res) => {
+// Add recommended skill
+exports.addRecommendedSkill = async (req, res) => {
 	try {
-		const removed = await Character.findByIdAndDelete(req.params.id);
-		if (!removed) return res.status(404).json({ success: false, message: 'Character not found' });
-		return res.json({ success: true, data: removed });
+		const { relatedId } = req.body;
+		if (!relatedId) return res.status(400).json({ success: false, message: 'relatedId required' });
+		const updated = await Character.findByIdAndUpdate(req.params.id, { $push: { recommendedSkills: relatedId } }, { new: true }).populate('recommendedCards recommendedParents recommendedSkills cardSet skills');
+		if (!updated) return res.status(404).json({ success: false, message: 'Character not found' });
+		return res.json({ success: true, data: updated });
+	} catch (err) {
+		return res.status(500).json({ success: false, message: err.message });
+	}
+};
+
+// Generic remove relation
+exports.removeRelation = async (req, res) => {
+	try {
+		const { field, relatedId } = req.params;
+		if (!field || !relatedId) return res.status(400).json({ success: false, message: 'field and relatedId required' });
+		const update = { $pull: {} };
+		update.$pull[field] = relatedId;
+		const updated = await Character.findByIdAndUpdate(req.params.id, update, { new: true }).populate('recommendedCards recommendedParents recommendedSkills cardSet skills');
+		if (!updated) return res.status(404).json({ success: false, message: 'Character not found' });
+		return res.json({ success: true, data: updated });
 	} catch (err) {
 		return res.status(500).json({ success: false, message: err.message });
 	}
