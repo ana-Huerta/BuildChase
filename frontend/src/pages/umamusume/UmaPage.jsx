@@ -104,7 +104,6 @@ export default function UmaPage() {
           <UmaCharacterModal character={selected} onClose={() => setSelected(null)} />
         </div>
       </UmaLayout>
-      <Footer />
     </main>
   )
 }

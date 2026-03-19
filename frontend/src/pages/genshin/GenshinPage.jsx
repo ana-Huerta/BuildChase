@@ -54,7 +54,6 @@ export default function GenshinPage() {
           <GenshinCharacterModal character={selected} onClose={() => setSelected(null)} />
         </div>
       </GenshinLayout>
-      <Footer />
     </main>
   )
 }

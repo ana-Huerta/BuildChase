@@ -78,13 +78,16 @@ export default function UmaLayout({ children }) {
                       value={rarity}
                       onChange={(e) => setParam('rarity', e.target.value)}
                       className="input"
-                      style={{ padding: '8px 36px 8px 12px', borderRadius: 8, background: 'rgba(0,0,0,0.2)', border: '1px solid var(--border)', color: 'var(--text-secondary)', minWidth: 120 }}
+                      style={{ appearance: 'none',WebkitAppearance: 'none', MozAppearance: 'none',  padding: '8px 36px 8px 12px', borderRadius: 8, background: 'rgba(53, 66, 140, .4)', border: '1px solid var(--border)', color: 'var(--text-secondary)', minWidth: 120}}
                     >
                       <option value="">Cualquiera</option>
                       <option value="3">★★★</option>
                       <option value="2">★★</option>
                       <option value="1">★</option>
                     </select>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style={{ position:'absolute', right:10, top:'50%', transform:'translateY(-50%)', pointerEvents:'none', color:'var(--text-primary)' }} xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6 9l6 6 6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </div>
                 </div>
               </div>

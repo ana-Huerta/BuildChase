@@ -17,21 +17,9 @@ import Footer from './components/layout/Footer'
 import HomeLanding from './components/layout/HomeLanding'
 
 export default function App() {
-  const wrapperStyle = {
-    position: 'relative',
-    color: '#fff',
-    backgroundImage: 'url(/images/bg.jpg)',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    margin: 0,
-    minHeight: '100vh',
-    minWidth: '100vw',
-    }
-
   return (
     <BrowserRouter>
-      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundImage: 'url(/images/bg.jpg)', color: 'var(--text-primary)' }}>
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundImage: 'url(/images/bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', color: 'var(--text-primary)' }}>
 
         <main style={{ flex: 1 }}>
           <Routes>

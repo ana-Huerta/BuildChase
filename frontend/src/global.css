@@ -98,6 +98,7 @@
   --border-color: rgba(15, 23, 42, 0.06);
   --muted-border: rgba(15,23,42,0.04);
   --primary: #111827;
+  --danger: #ef4444;
   --radius: 12px;
 }
 
@@ -134,6 +135,25 @@ html, body, #root {
 .nav { display:flex; gap:12px; border-bottom:1px solid var(--muted-border); align-items:center; }
 .nav a { color: var(--text-primary); text-decoration: none; border-radius:8px; }
 .nav a:hover { background: #33333ed9 }
+
+/* Header: translucent background with blur for modern minimal feel */
+.site-header {
+  z-index: 50;
+  background: rgba(var(--bg-primary), 0.55);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--muted-border);
+  display: flex;
+  flex-direction: row;
+}
+
+.header-nav { fontSize: 30; fontWeight: 500; display: 'flex'; alignItems: 'center'; fontFamily: 'Coolvetica; sans-serif'  }
+.logo { display:flex; align-items:center; gap:12px; text-decoration:none; padding-left: 5%;}
+.logo img { width: 40%; height: 40%; border-radius:8px; }
+.site-header .nav-link { padding: 8px 10px; color: var(--text-primary); }
+.site-header .nav-link.active { background: rgba(255,255,255,0.04); }
+.site-header .btn-off { padding: 8px 10px; border-radius: 8px; }
+
 
 /* Sidebar / nav-link */
 .nav-link { display: block; padding: 8px 10px; color: var(--text-primary); text-decoration: none; border-radius: 8px; }
@@ -178,7 +198,7 @@ html, body, #root {
 .card { background: rgba(255, 255, 255, 0.3); border-radius: 12px; padding: 12px; box-shadow: 0 1px 0 rgba(0,0,0,0.12); border: 1px solid rgba(255,255,255,0.02); }
 .card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
 .card-title { margin: 0; font-size: 16px; font-weight: 600; color: var(--text-primary); }
-.card-sub { margin: 4px 0 0; color: var(--text-secondary); font-size: 13px }
+.card-sub { margin: 4px 0 0; color: var(--honkai-fourth); font-size: 13px }
 
 /* Honkai layout specifics */
 .theme-honkai aside { position: sticky; top: 28px; align-self: start; }
@@ -198,10 +218,52 @@ html, body, #root {
 .list-img { width: 120px; height: 120px; border-radius: 8px; object-fit: cover; }
 .list-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); }
 
-/* Modal styles for character details */
+/* Confirmation Modal */
+
+.modal-confirmation {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-confirmation-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+}
+
+.modal-confirmation-panel-wrapper { position: relative; z-index: 10; width: 100%; max-width: 560px; padding: 12px; }
+.modal-confirmation-panel { background: rgba(255,255,255,0.03); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); overflow: hidden; border: 1px solid rgba(255,255,255,0.04); }
+.modal-confirmation-body { display:flex; gap:16px; padding:18px; align-items:start; }
+
+.modal-confirmation-icon { flex-shrink:0; }
+.modal-confirmation-icon-default { height:48px; width:48px; border-radius:999px; display:flex; align-items:center; justify-content:center; background: rgba(250,204,21,0.12); color: #b45309; }
+
+.modal-confirmation-content { flex:1; }
+.modal-confirmation-header { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
+.modal-confirmation-title { margin:0; font-size:16px; font-weight:700; color: var(--text-primary); }
+.modal-confirmation-desc { margin-top:6px; font-size:13px; color: var(--text-secondary); }
+.modal-confirmation-close { background:transparent; border:none; color: var(--text-secondary); cursor:pointer }
+
+.modal-confirmation-actions { margin-top:14px; display:flex; gap:8px; justify-content:flex-end; }
+.modal-confirmation-btn { padding:8px 12px; border-radius:8px; font-size:14px; cursor:pointer; border:none; }
+.modal-confirmation-btn-cancel { background: rgba(255,255,255,0.04); color: var(--text-primary); }
+.modal-confirmation-btn-primary { background: linear-gradient(180deg,#3b82f6,#2563eb); color: #fff; }
+.modal-confirmation-btn-danger { background: linear-gradient(180deg,#ef4444,#dc2626); color: #fff; }
+
+/* Disabled state */
+.modal-confirmation-btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+
+/* Modal styles details */
 .hc-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 60; }
-.hc-modal { background: rgb(17, 21, 64); width: 100%; max-width: 1100px; border-radius: 10px; padding: 20px; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.04); }
-.hc-modal-uma { background: rgb(59, 7, 26); width: 100%; max-width: 1100px; border-radius: 10px; padding: 20px; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.04); }
+.hc-modal-genshin { background: rgb(17, 21, 64); width: calc(100% - 40px); max-width: 1100px; border-radius: 10px; padding: 20px; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.04); max-height: calc(100vh - 60px); overflow-y: auto; }
+.hc-modal-honkai { background: rgb(40, 50, 105); width: calc(100% - 40px); max-width: 1100px; border-radius: 10px; padding: 20px; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.04); max-height: calc(100vh - 60px); overflow-y: auto; }
+.hc-modal-uma { background: rgb(59, 7, 26); width: calc(100% - 40px); max-width: 1100px; border-radius: 10px; padding: 20px; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.04); max-height: calc(100vh - 60px); overflow-y: auto; }
 .hc-modal-close { position: absolute; top: 12px; right: 12px; background: transparent; border: none; color: var(--text-primary); font-size: 20px; cursor: pointer; }
 .hc-modal-inner { display: grid; grid-template-columns: 2fr 2fr; gap: 20px; }
 .hc-left { }
@@ -226,7 +288,7 @@ html, body, #root {
 .hc-block.span2 { grid-column: 1 / -1 }
 
 /* Fixed left sidebar styles */
-.hc-sidebar { position: static; width: 200px; background: linear-gradient(180deg, rgba(53, 66, 140, .4), rgba(29, 92, 148, .5)); padding: 14px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+.hc-sidebar { position: static; width: 200px; background: linear-gradient(180deg, rgba(53, 66, 140, .4), rgba(224, 197, 154, .5)); padding: 14px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
 .hc-genshin-sidebar { position: static; width: 200px; background: linear-gradient(180deg, rgba(29, 92, 148, .4), rgba(53, 66, 140, .5)); padding: 14px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
 .hc-uma-sidebar { position: static; width: 200px; background: linear-gradient(180deg, rgba(242, 92, 147, .4), rgba(217, 67, 164, .5)); padding: 14px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
 .hc-logo { color: #fff; font-weight: 700; padding: 10px; text-align: center; border-radius: 8px; background: rgba(255,255,255,0.02); margin-bottom: 12px }
@@ -388,10 +450,10 @@ libro{
 .admin-panel .input { width: 100%; box-sizing: border-box; }
 .admin-panel .btn { min-width: 84px; height: 40px; padding: 8px 12px; border-radius: 8px; border: none; background: linear-gradient(180deg,#7c3aed,#5b21b6); box-shadow: 0 8px 20px rgba(99,102,241,0.12); }
 .admin-panel textarea { width: 100%; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace; font-size: 13px; color: var(--text-primary); background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.03); resize: vertical; border-radius: 8px; padding: 8px; }
-.admin-panel .list-item { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.02); display:flex; justify-content: space-between; align-items:center; }
+.admin-panel .list-item { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.02); display:flex; justify-content: space-between; align-items:center; background: rgba(255, 255, 255, 0.3);}
 .admin-panel .editor { background: rgba(0,0,0,0.03); padding: 8px; border-radius:8px; }
 /* Grid layout for admin panel */
-.admin-grid { display: grid; grid-template-columns: 320px 1fr; gap: 20px; align-items: start; }
+.admin-grid { display: grid; grid-template-columns: 280px 1fr; gap: 20px; align-items: start; }
 .admin-aside { width: 100%; }
 .admin-main { width: 100%; }
 .admin-content { display: grid; grid-template-columns: 1fr 420px; gap: 20px; }

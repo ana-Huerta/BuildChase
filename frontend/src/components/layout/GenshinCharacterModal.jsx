@@ -7,7 +7,7 @@ export default function GenshinCharacterModal({ character, onClose }) {
 
   return (
     <div className="hc-modal-overlay" onClick={onClose}>
-      <div className="hc-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="hc-modal-genshin" onClick={(e) => e.stopPropagation()}>
         <button className="hc-modal-close" onClick={onClose}>✕</button>
 
         <div className="hc-modal-inner">

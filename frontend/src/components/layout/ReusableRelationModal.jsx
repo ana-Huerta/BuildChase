@@ -4,12 +4,13 @@ export default function ReusableRelationModal({
   open,
   onClose,
   api,
-  parentResource, // e.g. 'characters'
+  parentResource,
   parentId,
-  relatedResource, // e.g. 'artifacts'
-  relationField, // e.g. 'recommendedArtifacts'
+  relatedResource,
+  relationField,
   existingIds = [],
-  onAdded
+  onAdded,
+  onPick // optional: called with the related item when parentId is not provided (create mode)
 }) {
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(false)
@@ -17,7 +18,9 @@ export default function ReusableRelationModal({
   useEffect(() => {
     if (!open) return
     setLoading(true)
-    api.get(`/${relatedResource}/simple`)
+    // normalize resource names to lowercase to match backend routes
+    const relResPath = String(relatedResource || '').toLowerCase()
+    api.get(`/${relResPath}/simple`)
       .then(res => {
         const items = (res.data && res.data.data) || res.data || []
         const filtered = items.filter(i => !existingIds.includes(String(i._id)))
@@ -28,8 +31,21 @@ export default function ReusableRelationModal({
   }, [open, relatedResource, existingIds, api])
 
   async function handleSelect(relatedId) {
+    // find selected item in the list
+    const item = list.find(i => String(i._id) === String(relatedId))
+    // if parentId is not provided and onPick exists, use local pick flow (create-mode)
+    if (!parentId && typeof onPick === 'function') {
+      try {
+        onPick(item)
+      } catch (err) {
+        console.error('onPick handler error', err)
+      }
+      return
+    }
+
     try {
-      const res = await api.post(`/${parentResource}/${parentId}/${relationField}`, { relatedId })
+      const parentPath = String(parentResource || '').toLowerCase()
+      const res = await api.post(`/${parentPath}/${parentId}/${relationField}`, { relatedId })
       const updated = res.data?.data
       if (onAdded) onAdded(updated, relatedId)
     } catch (err) {
@@ -40,14 +56,16 @@ export default function ReusableRelationModal({
 
   if (!open) return null
   return (
-    <div className="modal-backdrop">
-      <div className="modal" style={{ padding: 16, maxWidth: 720 }}>
+    <div className="hc-modal-overlay">
+      <div className="hc-modal-genshin">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <h3 style={{ margin: 0 }}>Agregar — {relationField}</h3>
           <button className="btn" onClick={onClose}>Cerrar</button>
         </div>
 
-        {loading ? <div style={{ padding: 16 }}>Cargando...</div> : (
+        {loading ? (
+          <div style={{ padding: 16 }}>Cargando...</div>
+        ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,64px)', gap: 12, marginTop: 12 }}>
             {list.map(p => (
               <button key={p._id} onClick={() => handleSelect(p._id)} style={{ border: 'none', background: 'transparent', padding: 0 }}>
