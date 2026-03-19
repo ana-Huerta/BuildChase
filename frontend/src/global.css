@@ -484,3 +484,63 @@ libro{
   .form-grid { grid-template-columns: 1fr }
 }
 
+/* Responsive adjustments for admin and modals */
+@media (max-width: 1100px) {
+  .container { padding: 18px; }
+  .hc-modal-genshin, .hc-modal-honkai, .hc-modal-uma { max-width: calc(100% - 40px); width: calc(100% - 40px); }
+  .admin-content { grid-template-columns: 1fr 340px; }
+}
+
+@media (max-width: 960px) {
+  .btn, .btn-uma, .btn-off { width: auto; height: 40px; padding: 8px 10px; }
+  .admin-grid { grid-template-columns: 1fr; }
+  .admin-content { grid-template-columns: 1fr; }
+  .admin-list-scroll { max-height: 360px; }
+  .hc-modal-inner { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .admin-panel { padding: 12px; }
+  .admin-list-scroll { max-height: 280px; }
+  .list-item { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .list-item > div:last-child { margin-top: 6px; }
+  .hc-modal-genshin, .hc-modal-honkai, .hc-modal-uma { width: calc(100% - 24px); max-width: calc(100% - 24px); padding: 14px; }
+  .modal-confirmation-panel-wrapper { padding: 8px; max-width: calc(100% - 24px); }
+  .modal-confirmation-body { flex-direction: column; align-items: stretch; }
+  .modal-confirmation-icon { display:flex; justify-content:center; }
+  .modal-confirmation-actions { width:100%; justify-content: flex-end; }
+}
+
+@media (max-width: 480px) {
+  .page-title { font-size: 20px; }
+  .btn, .btn-uma, .btn-off { padding: 6px 8px; height: 36px; min-width: 64px; }
+  .form-grid { gap: 8px; }
+  .modal-confirmation-title { font-size: 15px; }
+  .modal-confirmation-desc { font-size: 13px; }
+}
+
+/* Very small screens: stack actions, full-screen modals */
+@media (max-width: 420px) {
+  .admin-list .list-item { gap: 10px; }
+  .admin-list .list-item .btn { width: 100%; display: block; }
+  .admin-list .list-item .btn + .btn { margin-top: 8px; }
+
+  .hc-modal-genshin, .hc-modal-honkai, .hc-modal-uma {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100vh;
+    border-radius: 0;
+    padding: 12px;
+    box-shadow: none;
+    border: none;
+  }
+
+  .hc-modal-genshin .hc-modal-inner, .hc-modal-honkai .hc-modal-inner, .hc-modal-uma .hc-modal-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-confirmation-panel-wrapper { max-width: 100%; padding: 6px; }
+  .modal-confirmation-panel { border-radius: 8px; }
+  .modal-confirmation-body { gap: 12px; }
+}
+
